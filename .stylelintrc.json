@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules",
+    "stylelint-config-idiomatic-order",
+    "stylelint-config-prettier",
+    "stylelint-config-html/svelte"
+  ],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "selector-type-no-unknown": null,
+    "value-keyword-case": null,
+    "no-descending-specificity": null
+  },
+  "ignoreFiles": ["/.svelte-kit/", "/.vscode/", "/build/", "/node_modules/", "/src/app.html", "/src/assets/**/*"]
+}
