@@ -1,52 +1,32 @@
-<script context="module" lang="ts">
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-
-window.MonacoEnvironment = {
-  getWorker: function (_, label) {
-    switch (label) {
-      case 'typescript':
-      case 'javascript':
-        return new tsWorker()
-      default:
-        return new editorWorker()
-    }
-  },
-}
-</script>
-
 <script lang="ts">
-import * as monaco from 'monaco-editor'
-import { onMount } from 'svelte'
+import Editor from './Editor.svelte'
 
-let editorEl: HTMLDivElement
-let editor: monaco.editor.IStandaloneCodeEditor
-
-onMount(() => {
-  editor = monaco.editor.create(editorEl, {
-    value: "function hello() {\n\talert('Hello world!');\n}",
-    language: 'javascript',
-  })
-
-  console.log(editor)
-})
+let value = 0
 </script>
 
-<div class="editor" bind:this={editorEl} />
+<div class="root">
+  <button on:click={() => (value = Math.random())}>Change value</button>
+  <Editor content={`let x = ${value};`} on:change={console.log} />
+</div>
 
 <style lang="postcss">
 :global {
   & html,
   & body {
-    width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
   }
 }
 
-.editor {
-  width: 100%;
+.root {
+  display: flex;
   height: 100%;
+  flex-direction: column;
+  gap: 1rem;
+
+  & button {
+    height: 3rem;
+  }
 }
 </style>
